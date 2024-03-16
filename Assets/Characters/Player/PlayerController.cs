@@ -9,13 +9,15 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed = 1f;
     public float collisionOffset = 0.02f;
     public ContactFilter2D movementFilter;
-    
+
     Vector2 movementInput;
     SpriteRenderer renderer;
     Rigidbody2D rigidbody;
     Animator animator;
 
     List<RaycastHit2D> castCollisions = new();
+
+    bool canMove = true;
 
     void Start()
     {
@@ -26,37 +28,37 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Vector2 direction = movementInput;
-        if (movementInput != Vector2.zero)
+        if (canMove)
         {
-            bool success = TryMove(movementInput);
-
-            if (!success)
+            if (movementInput != Vector2.zero)
             {
-                success = TryMove(new Vector2(movementInput.x, 0));
-                direction = new Vector2(movementInput.x, 0);
+                bool success = TryMove(movementInput);
 
                 if (!success)
                 {
-                    success = TryMove(new Vector2(0, movementInput.y));
-                    direction = new Vector2(0, movementInput.y);
+                    success = TryMove(new Vector2(movementInput.x, 0));
+
+                    if (!success)
+                    {
+                        success = TryMove(new Vector2(0, movementInput.y));
+                    }
                 }
+
+                animator.SetBool("isMoving", true);
             }
-            animator.SetBool("isMoving", true);
+            else
+            {
+                animator.SetBool("isMoving", false);
+            }
+
+            FlipSpriteHorizontally();
+
+            AnimateMovement(movementInput);
         }
-        else
-        {
-            animator.SetBool("isMoving", false);
-        }
-        
-        FlipSpriteHorizontally();
-        
-        AnimateMovement(direction);
     }
 
     private void AnimateMovement(Vector2 direction)
     {
-        print(direction);
         animator.SetFloat("horizontal", direction.x * 2);
         animator.SetFloat("vertical", direction.y * 2);
     }
@@ -91,5 +93,20 @@ public class PlayerController : MonoBehaviour
     void OnMove(InputValue movementValue)
     {
         movementInput = movementValue.Get<Vector2>();
+    }
+
+    void OnFire()
+    {
+        animator.SetTrigger("swordAttack");
+    }
+
+    public void LockMovement()
+    {
+        canMove = false;
+    }
+
+    public void UnlockMovement()
+    {
+        canMove = true;
     }
 }
