@@ -7,34 +7,85 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     public float moveSpeed = 1f;
-    public float collisionOffset = 0.05f;
+    public float collisionOffset = 0.02f;
     public ContactFilter2D movementFilter;
     
     Vector2 movementInput;
+    SpriteRenderer renderer;
     Rigidbody2D rigidbody;
+    Animator animator;
 
     List<RaycastHit2D> castCollisions = new();
-    
+
     void Start()
     {
+        renderer = GetComponent<SpriteRenderer>();
         rigidbody = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
     }
 
     private void FixedUpdate()
     {
+        Vector2 direction = movementInput;
         if (movementInput != Vector2.zero)
         {
-            var count = rigidbody.Cast(
-                movementInput,
-                movementFilter,
-                castCollisions,
-                moveSpeed * Time.fixedDeltaTime + collisionOffset
-            );
-            if (count == 0)
+            bool success = TryMove(movementInput);
+
+            if (!success)
             {
-                rigidbody.MovePosition(rigidbody.position + movementInput * (moveSpeed * Time.fixedDeltaTime));
+                success = TryMove(new Vector2(movementInput.x, 0));
+                direction = new Vector2(movementInput.x, 0);
+
+                if (!success)
+                {
+                    success = TryMove(new Vector2(0, movementInput.y));
+                    direction = new Vector2(0, movementInput.y);
+                }
             }
+            animator.SetBool("isMoving", true);
         }
+        else
+        {
+            animator.SetBool("isMoving", false);
+        }
+        
+        FlipSpriteHorizontally();
+        
+        AnimateMovement(direction);
+    }
+
+    private void AnimateMovement(Vector2 direction)
+    {
+        print(direction);
+        animator.SetFloat("horizontal", direction.x * 2);
+        animator.SetFloat("vertical", direction.y * 2);
+    }
+
+    private bool TryMove(Vector2 direction)
+    {
+        var count = rigidbody.Cast(
+            direction,
+            movementFilter,
+            castCollisions,
+            moveSpeed * Time.fixedDeltaTime + collisionOffset
+        );
+        if (count == 0)
+        {
+            rigidbody.MovePosition(rigidbody.position + direction * (moveSpeed * Time.fixedDeltaTime));
+            return true;
+        }
+
+        return false;
+    }
+
+    private void FlipSpriteHorizontally()
+    {
+        renderer.flipX = movementInput.x switch
+        {
+            < 0 => true,
+            > 0 => false,
+            _ => renderer.flipX
+        };
     }
 
     void OnMove(InputValue movementValue)
