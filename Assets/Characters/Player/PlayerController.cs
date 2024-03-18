@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed = 1f;
     public float collisionOffset = 0.02f;
     public ContactFilter2D movementFilter;
+    
+    public SwordAttack swordAttack;
 
     Vector2 movementInput;
     SpriteRenderer renderer;
@@ -53,7 +55,29 @@ public class PlayerController : MonoBehaviour
 
             FlipSpriteHorizontally();
 
+            ChangeSwordDirection();
+
             AnimateMovement(movementInput);
+        }
+    }
+
+    private void ChangeSwordDirection()
+    {
+        if (movementInput.x > 0)
+        {
+            swordAttack.attackDirection = SwordAttack.AttackDirection.right;
+        }
+        else if (movementInput.x < 0)
+        {
+            swordAttack.attackDirection = SwordAttack.AttackDirection.left;
+        }
+        else if (movementInput.y > 0)
+        {
+            swordAttack.attackDirection = SwordAttack.AttackDirection.up;
+        }
+        else if (movementInput.y < 0)
+        {
+            swordAttack.attackDirection = SwordAttack.AttackDirection.down;
         }
     }
 
@@ -98,6 +122,12 @@ public class PlayerController : MonoBehaviour
     void OnFire()
     {
         animator.SetTrigger("swordAttack");
+    }
+    
+    public void SwordSwing()
+    {
+        LockMovement();
+        swordAttack.Attack(transform.position);
     }
 
     public void LockMovement()
