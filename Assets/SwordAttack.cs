@@ -11,24 +11,17 @@ public class SwordAttack : MonoBehaviour
     }
     
     public AttackDirection attackDirection;
+    public float damage = 3;
+
+    private readonly Vector2 _rightAttackOffset = new Vector2(0.11f, -0.11f);
+    private readonly Vector2 _downAttackOffset = new Vector2(0.01f, -0.19f);
+    private readonly Vector2 _upAttackOffset = new Vector2(-0.01f, -0.02f);
     
-    Vector2 rightAttackOffset;
-    Vector2 downAttackOffset;
-    Vector2 upAttackOffset;
-    Collider2D swordHitbox;
+    public Collider2D swordHitbox;
     
     private Vector2 _playerPosition;
     void Start()
     {
-        swordHitbox = GetComponent<Collider2D>();
-        rightAttackOffset = new Vector2(0.11f, -0.11f);
-        downAttackOffset = new Vector2(0.01f, -0.19f);
-        upAttackOffset = new Vector2(-0.01f, -0.02f);
-    }
-
-    void Update()
-    {
-        
     }
 
     public void Attack(Vector2 playerPosition)
@@ -57,30 +50,44 @@ public class SwordAttack : MonoBehaviour
     
     private void AttackRight()
     {
-        transform.position = _playerPosition + rightAttackOffset;
+        transform.position = _playerPosition + _rightAttackOffset;
         swordHitbox.enabled = true;
     }
 
     private void AttackLeft()
     {
-        transform.position = _playerPosition + new Vector2(-rightAttackOffset.x, rightAttackOffset.y);
+        transform.position = _playerPosition + new Vector2(-_rightAttackOffset.x, _rightAttackOffset.y);
         swordHitbox.enabled = true;
     }
     
     private void AttackUp()
     {
-        transform.position = _playerPosition + upAttackOffset;
+        transform.position = _playerPosition + _upAttackOffset;
         swordHitbox.enabled = true;
     }
     
     private void AttackDown()
     {
-        transform.position = _playerPosition + downAttackOffset;
+        transform.position = _playerPosition + _downAttackOffset;
         swordHitbox.enabled = true;
     }
     
-    private void StopAttack()
+    public void StopAttack()
     {
         swordHitbox.enabled = false;
+    }
+    
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        print("Hit something");
+        if (other.CompareTag("Enemy"))
+        {
+            EnemyScript enemy = other.GetComponent<EnemyScript>();
+
+            if (enemy != null)
+            {
+                enemy.TakeDamage(damage);
+            }
+        }
     }
 }
