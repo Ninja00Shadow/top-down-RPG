@@ -127,7 +127,7 @@ public class PlayerController : MonoBehaviour
     public void SwordSwing()
     {
         LockMovement();
-        swordAttack.Attack(transform.position);
+        swordAttack.Attack();
     }
     
     public void SwordSwingEnd()

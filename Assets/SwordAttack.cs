@@ -19,15 +19,12 @@ public class SwordAttack : MonoBehaviour
     
     public Collider2D swordHitbox;
     
-    private Vector2 _playerPosition;
     void Start()
     {
     }
 
-    public void Attack(Vector2 playerPosition)
+    public void Attack()
     {
-        _playerPosition = playerPosition;
-        
         switch (attackDirection)
         {
             case AttackDirection.left:
@@ -50,25 +47,25 @@ public class SwordAttack : MonoBehaviour
     
     private void AttackRight()
     {
-        transform.position = _playerPosition + _rightAttackOffset;
+        transform.localPosition = _rightAttackOffset;
         swordHitbox.enabled = true;
     }
 
     private void AttackLeft()
     {
-        transform.position = _playerPosition + new Vector2(-_rightAttackOffset.x, _rightAttackOffset.y);
+        transform.localPosition = new Vector2(-_rightAttackOffset.x, _rightAttackOffset.y);
         swordHitbox.enabled = true;
     }
     
     private void AttackUp()
     {
-        transform.position = _playerPosition + _upAttackOffset;
+        transform.localPosition = _upAttackOffset;
         swordHitbox.enabled = true;
     }
     
     private void AttackDown()
     {
-        transform.position = _playerPosition + _downAttackOffset;
+        transform.localPosition = _downAttackOffset;
         swordHitbox.enabled = true;
     }
     
