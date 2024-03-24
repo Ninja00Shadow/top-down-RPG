@@ -19,8 +19,13 @@ public class SwordAttack : MonoBehaviour
     
     public Collider2D swordHitbox;
     
+    private AudioSource audioSource;
+    public AudioClip swordSwingSound;
+    
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
+        swordHitbox.enabled = false;
     }
 
     public void Attack()
@@ -43,6 +48,7 @@ public class SwordAttack : MonoBehaviour
                 AttackRight();
                 break;
         }
+        audioSource.PlayOneShot(swordSwingSound, 0.5f);
     }
     
     private void AttackRight()
