@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyScript : MonoBehaviour
+public class EnemyController : MonoBehaviour
 {
     public float moveSpeed = 0.5f;
     public float range = 0.75f;
@@ -34,7 +34,7 @@ public class EnemyScript : MonoBehaviour
     }
 
     public float health = 1f;
-
+    
     void Start()
     {
         renderer = GetComponent<SpriteRenderer>();
@@ -121,5 +121,15 @@ public class EnemyScript : MonoBehaviour
             > 0 => false,
             _ => renderer.flipX
         };
+    }
+    
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            PlayerController player = other.GetComponent<PlayerController>();
+            
+            player.TakeDamage(1f);
+        }
     }
 }

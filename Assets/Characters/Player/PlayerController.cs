@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed = 1f;
     public float collisionOffset = 0.02f;
     public ContactFilter2D movementFilter;
-    
+
     public SwordAttack swordAttack;
 
     Vector2 movementInput;
@@ -20,6 +20,10 @@ public class PlayerController : MonoBehaviour
     List<RaycastHit2D> castCollisions = new();
 
     bool canMove = true;
+
+    public HealthBar healthBar;
+    public float health = 3f;
+    public bool invincible = false;
 
     void Start()
     {
@@ -123,13 +127,13 @@ public class PlayerController : MonoBehaviour
     {
         animator.SetTrigger("swordAttack");
     }
-    
+
     public void SwordSwing()
     {
         LockMovement();
         swordAttack.Attack();
     }
-    
+
     public void SwordSwingEnd()
     {
         UnlockMovement();
@@ -144,5 +148,32 @@ public class PlayerController : MonoBehaviour
     public void UnlockMovement()
     {
         canMove = true;
+    }
+
+    public void TakeDamage(float damage)
+    {
+        if (health > 0 && !invincible)
+        {
+            health -= damage;
+            healthBar.health = (int)health;
+            healthBar.UpdateHealth();
+        }
+        print(health);
+
+        if (!(health <= 0)) return;
+        invincible = true;
+        health = 3f;
+        healthBar.health = (int)health;
+        healthBar.UpdateHealth();
+        animator.SetTrigger("death");
+        LockMovement();
+    }
+
+    public void Defeated()
+    {
+        print("Invoked");
+        transform.position = new Vector3(0, 0, 0);
+        invincible = false;
+        UnlockMovement();
     }
 }

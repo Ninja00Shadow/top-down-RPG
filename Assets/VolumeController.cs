@@ -18,12 +18,11 @@ public class VolumeController : MonoBehaviour
     void Update()
     {
         audio.volume = volume;
-        print(audio.clip.name + " volume: " + audio.volume);
     }
     
     void OnGUI()
     {
-        GUI.Label(new Rect(25, 5, 100, 30), "Volume");
-        volume = GUI.HorizontalSlider(new Rect(25, 25, 100, 30), volume, minVolume, maxVolume);
+        GUI.Label(new Rect(25, 75, 100, 30), "Volume");
+        volume = GUI.HorizontalSlider(new Rect(25, 95, 100, 30), volume, minVolume, maxVolume);
     }
 }

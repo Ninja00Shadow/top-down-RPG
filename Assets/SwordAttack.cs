@@ -85,7 +85,7 @@ public class SwordAttack : MonoBehaviour
         print("Hit something");
         if (other.CompareTag("Enemy"))
         {
-            EnemyScript enemy = other.GetComponent<EnemyScript>();
+            EnemyController enemy = other.GetComponent<EnemyController>();
 
             if (enemy != null)
             {
