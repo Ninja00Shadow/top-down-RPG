@@ -13,10 +13,10 @@ public class PlayerController : MonoBehaviour
 
     public SwordAttack swordAttack;
 
-    Vector2 movementInput;
-    SpriteRenderer renderer;
-    Rigidbody2D rigidbody;
-    Animator animator;
+    private Vector2 movementInput;
+    private SpriteRenderer _renderer;
+    private Rigidbody2D _rigidbody;
+    private Animator animator;
 
     List<RaycastHit2D> castCollisions = new();
 
@@ -30,8 +30,8 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        renderer = GetComponent<SpriteRenderer>();
-        rigidbody = GetComponent<Rigidbody2D>();
+        _renderer = GetComponent<SpriteRenderer>();
+        _rigidbody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
     }
 
@@ -96,7 +96,7 @@ public class PlayerController : MonoBehaviour
 
     private bool TryMove(Vector2 direction)
     {
-        var count = rigidbody.Cast(
+        var count = _rigidbody.Cast(
             direction,
             movementFilter,
             castCollisions,
@@ -104,7 +104,7 @@ public class PlayerController : MonoBehaviour
         );
         if (count == 0)
         {
-            rigidbody.MovePosition(rigidbody.position + direction * (moveSpeed * Time.fixedDeltaTime));
+            _rigidbody.MovePosition(_rigidbody.position + direction * (moveSpeed * Time.fixedDeltaTime));
             return true;
         }
 
@@ -113,11 +113,11 @@ public class PlayerController : MonoBehaviour
 
     private void FlipSpriteHorizontally()
     {
-        renderer.flipX = movementInput.x switch
+        _renderer.flipX = movementInput.x switch
         {
             < 0 => true,
             > 0 => false,
-            _ => renderer.flipX
+            _ => _renderer.flipX
         };
     }
 

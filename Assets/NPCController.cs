@@ -24,8 +24,6 @@ public class NPCController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        print(movementInput);
-        
         if (movementInput != Vector2.zero)
         {
             bool success = TryMove(movementInput);
