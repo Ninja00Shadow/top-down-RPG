@@ -25,15 +25,17 @@ public class EnemyController : MonoBehaviour
         set
         {
             health = value;
-            if (health <= 0)
+            if (health <= 0 && !invincible)
             {
                 animator.SetTrigger("death");
+                invincible = true;
             }
         }
         get => health;
     }
 
     public float health = 1f;
+    public bool invincible = false;
     
     void Start()
     {
@@ -65,6 +67,9 @@ public class EnemyController : MonoBehaviour
 
     public void Defeated()
     {
+        PlayerController player = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
+        player.GetCoins(1);
+        
         Destroy(gameObject);
     }
 

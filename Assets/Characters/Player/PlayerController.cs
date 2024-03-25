@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 public class PlayerController : MonoBehaviour
 {
@@ -21,8 +22,10 @@ public class PlayerController : MonoBehaviour
 
     bool canMove = true;
 
-    public HealthBar healthBar;
+    public HealthMoneyBar healthMoneyBar;
     public float health = 3f;
+    public int coins = 0;
+    
     public bool invincible = false;
 
     void Start()
@@ -155,16 +158,16 @@ public class PlayerController : MonoBehaviour
         if (health > 0 && !invincible)
         {
             health -= damage;
-            healthBar.health = (int)health;
-            healthBar.UpdateHealth();
+            healthMoneyBar.health = (int)health;
+            healthMoneyBar.UpdateHealth();
         }
         print(health);
 
         if (!(health <= 0)) return;
         invincible = true;
         health = 3f;
-        healthBar.health = (int)health;
-        healthBar.UpdateHealth();
+        healthMoneyBar.health = (int)health;
+        healthMoneyBar.UpdateHealth();
         animator.SetTrigger("death");
         LockMovement();
     }
@@ -175,5 +178,11 @@ public class PlayerController : MonoBehaviour
         transform.position = new Vector3(0, 0, 0);
         invincible = false;
         UnlockMovement();
+    }
+    
+    public void GetCoins(int money)
+    {
+        coins += money;
+        healthMoneyBar.UpdateMoney(money);
     }
 }

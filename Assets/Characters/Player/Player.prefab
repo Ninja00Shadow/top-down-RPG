@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8880021931400760277}
   - component: {fileID: 772743008008182665}
   m_Layer: 0
-  m_Name: SwordHitBoxHorizontal
+  m_Name: SwordHitBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -206,7 +206,6 @@ GameObject:
   - component: {fileID: 664404009200925947}
   - component: {fileID: 6542930826374497711}
   - component: {fileID: 4175659723138789618}
-  - component: {fileID: 1305422599112510886}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -294,7 +293,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Actions: {fileID: 0}
+  m_Actions: {fileID: -944628639613478452, guid: 1ab202a7b6a23d945915e8f5a8f712fd, type: 3}
   m_NotificationBehavior: 0
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
@@ -309,7 +308,7 @@ MonoBehaviour:
   m_ActionEvents: []
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: 
+  m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!114 &6157860568534519261
@@ -325,7 +324,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 1
-  collisionOffset: 0.05
+  collisionOffset: 0.02
   movementFilter:
     useTriggers: 0
     useLayerMask: 0
@@ -340,7 +339,11 @@ MonoBehaviour:
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
-  swordAttack: {fileID: 0}
+  swordAttack: {fileID: 8880021931400760277}
+  healthMoneyBar: {fileID: 0}
+  health: 3
+  coins: 0
+  invincible: 0
 --- !u!50 &664404009200925947
 Rigidbody2D:
   serializedVersion: 4
@@ -434,15 +437,3 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1305422599112510886
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7473428376138006129}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fbd5e5921a806ad4397728cd445e37d4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
