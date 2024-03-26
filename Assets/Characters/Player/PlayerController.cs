@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 
 public class PlayerController : MonoBehaviour
@@ -30,16 +31,21 @@ public class PlayerController : MonoBehaviour
     
     private static bool playerExists = false;
 
-    void Start()
+    void Awake()
     {
         _renderer = GetComponent<SpriteRenderer>();
         _rigidbody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-
+        
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+    
+    void Start()
+    {
         if (!playerExists)
         {
             playerExists = true;
-            DontDestroyOnLoad(transform.gameObject);
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -196,5 +202,33 @@ public class PlayerController : MonoBehaviour
     {
         coins += money;
         healthMoneyBar.UpdateMoney(money);
+    }
+    
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        StartCoroutine(DelayedFindEnemy());
+        
+        _rigidbody.WakeUp();
+    }
+
+    private IEnumerator DelayedFindEnemy()
+    {
+        yield return new WaitForEndOfFrame();
+        var enemy = GameObject.FindWithTag("Enemy");
+        if (enemy != null)
+        {
+            print("Enemy found");
+        }
+        
+        var player = GameObject.FindWithTag("Player");
+        if (player != null)
+        {
+            print("Player found");
+        }
+    }
+
+    void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 }

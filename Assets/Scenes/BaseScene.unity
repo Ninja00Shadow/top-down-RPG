@@ -468,6 +468,11 @@ TilemapCollider2D:
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0
   m_UseDelaunayMesh: 0
+--- !u!1 &160877698 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3154858179341631281, guid: 059d33f3539219847a35795b2b61b3b4, type: 3}
+  m_PrefabInstance: {fileID: 4630673063922018543}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &296619199
 GameObject:
   m_ObjectHideFlags: 0
@@ -571,6 +576,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 502034248}
+  - component: {fileID: 502034249}
   m_Layer: 0
   m_Name: CharacterSpawner
   m_TagString: Untagged
@@ -593,6 +599,26 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &502034249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 502034247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55a21a66d9fe7a243ad75a81b3ee944b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slimePrefab: {fileID: 798216425}
+  npcPrefab: {fileID: 160877698}
+  leftRange: 4
+  rightRange: 4
+  upRange: 4
+  downRange: 4
+  maxNumberOfSlimes: 10
+  maxNumberOfNpcs: 3
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -741,6 +767,11 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &798216425 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3045521023000613382, guid: a115e012156683e46844ee7f32054b10, type: 3}
+  m_PrefabInstance: {fileID: 8527083970096046783}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &827284163
 GameObject:
   m_ObjectHideFlags: 0
@@ -10349,7 +10380,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -3
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
@@ -10739,7 +10770,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2169676182449791672, guid: a115e012156683e46844ee7f32054b10, type: 3}
   m_PrefabInstance: {fileID: 8527083970096046783}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 798216425}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6f83f823613277141ba21d4bb769135c, type: 3}
@@ -12139,38 +12170,6 @@ PrefabInstance:
       propertyPath: healthMoneyBar
       value: 
       objectReference: {fileID: 1994545210}
-    - target: {fileID: 6241985303803494956, guid: e2df429bfab59c14da7901df0f8617c3, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6241985303803494956, guid: e2df429bfab59c14da7901df0f8617c3, type: 3}
-      propertyPath: m_SpriteTilingProperty.pivot.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6241985303803494956, guid: e2df429bfab59c14da7901df0f8617c3, type: 3}
-      propertyPath: m_SpriteTilingProperty.pivot.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6241985303803494956, guid: e2df429bfab59c14da7901df0f8617c3, type: 3}
-      propertyPath: m_SpriteTilingProperty.newSize.x
-      value: 0.16
-      objectReference: {fileID: 0}
-    - target: {fileID: 6241985303803494956, guid: e2df429bfab59c14da7901df0f8617c3, type: 3}
-      propertyPath: m_SpriteTilingProperty.newSize.y
-      value: 0.16
-      objectReference: {fileID: 0}
-    - target: {fileID: 6241985303803494956, guid: e2df429bfab59c14da7901df0f8617c3, type: 3}
-      propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 0.16
-      objectReference: {fileID: 0}
-    - target: {fileID: 6241985303803494956, guid: e2df429bfab59c14da7901df0f8617c3, type: 3}
-      propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 0.16
-      objectReference: {fileID: 0}
-    - target: {fileID: 6241985303803494956, guid: e2df429bfab59c14da7901df0f8617c3, type: 3}
-      propertyPath: m_SpriteTilingProperty.adaptiveTilingThreshold
-      value: 0.5
-      objectReference: {fileID: 0}
     - target: {fileID: 6542930826374497711, guid: e2df429bfab59c14da7901df0f8617c3, type: 3}
       propertyPath: m_IsTrigger
       value: 0
@@ -12192,6 +12191,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1574194335324793651, guid: 059d33f3539219847a35795b2b61b3b4, type: 3}
+      propertyPath: collisionOffset
+      value: 0.05
+      objectReference: {fileID: 0}
     - target: {fileID: 3154858179341631281, guid: 059d33f3539219847a35795b2b61b3b4, type: 3}
       propertyPath: m_Name
       value: NPC

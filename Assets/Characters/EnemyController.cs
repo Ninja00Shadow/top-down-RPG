@@ -6,7 +6,7 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
     public float moveSpeed = 0.5f;
-    public float range = 0.75f;
+    public float range = 1.5f;
     public float collisionOffset = 0.02f;
     public ContactFilter2D movementFilter;
 

@@ -163,7 +163,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 0.5
-  range: 0.5
+  range: 1.5
   collisionOffset: 0.02
   movementFilter:
     useTriggers: 0
@@ -180,6 +180,8 @@ MonoBehaviour:
     minNormalAngle: 0
     maxNormalAngle: 0
   health: 1
+  damage: 1
+  invincible: 0
 --- !u!95 &892475387461217131
 Animator:
   serializedVersion: 5

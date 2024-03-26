@@ -5,7 +5,7 @@ using UnityEngine;
 public class NPCController : MonoBehaviour
 {
     public float moveSpeed = 0.75f;
-    public float collisionOffset = 0.02f;
+    public float collisionOffset = 0.05f;
     public ContactFilter2D movementFilter;
 
     Vector2 movementInput;
