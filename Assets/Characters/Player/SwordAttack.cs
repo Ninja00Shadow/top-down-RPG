@@ -48,6 +48,11 @@ public class SwordAttack : MonoBehaviour
                 AttackRight();
                 break;
         }
+        PlaySound();
+    }
+
+    public void PlaySound()
+    {
         audioSource.PlayOneShot(swordSwingSound, 0.3f);
     }
     

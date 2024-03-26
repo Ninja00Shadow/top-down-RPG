@@ -27,12 +27,24 @@ public class PlayerController : MonoBehaviour
     public int coins = 0;
     
     public bool invincible = false;
+    
+    private static bool playerExists = false;
 
     void Start()
     {
         _renderer = GetComponent<SpriteRenderer>();
         _rigidbody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+
+        if (!playerExists)
+        {
+            playerExists = true;
+            DontDestroyOnLoad(transform.gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void FixedUpdate()

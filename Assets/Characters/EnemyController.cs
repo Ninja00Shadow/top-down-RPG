@@ -29,12 +29,14 @@ public class EnemyController : MonoBehaviour
             {
                 animator.SetTrigger("death");
                 invincible = true;
+                damage = 0;
             }
         }
         get => health;
     }
 
     public float health = 1f;
+    public float damage = 1f;
     public bool invincible = false;
     
     void Start()
@@ -134,7 +136,7 @@ public class EnemyController : MonoBehaviour
         {
             PlayerController player = other.GetComponent<PlayerController>();
             
-            player.TakeDamage(1f);
+            player.TakeDamage(damage);
         }
     }
 }
