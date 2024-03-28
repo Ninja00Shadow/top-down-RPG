@@ -152,6 +152,7 @@ public class PlayerController : MonoBehaviour
     public void SwordSwing()
     {
         LockMovement();
+        swordAttack.PlaySound();
         swordAttack.Attack();
     }
 

@@ -48,7 +48,6 @@ public class SwordAttack : MonoBehaviour
                 AttackRight();
                 break;
         }
-        PlaySound();
     }
 
     public void PlaySound()
